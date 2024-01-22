@@ -1,0 +1,15 @@
+.qm-booking-information {
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-right: rem($standard-padding / 2);
+
+  .qm-notify {
+    margin-bottom: rem($standard-margin * 2);
+  }
+
+  .qm-standard-text-field {
+    margin-bottom: rem(24px);
+  }
+}

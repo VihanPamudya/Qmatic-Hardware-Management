@@ -1,0 +1,56 @@
+h1 {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qm-modal {
+  &__box-container {
+    justify-content: center;
+    height: 450px;
+    border-radius: 10px;
+  }
+  &__footer {
+    margin-top: 20px;
+  }
+}
+
+.qm-standard-text-field {
+  &__label {
+  }
+  &__top-container {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+  }
+  &__input-container {
+    display: flex;
+    justify-content: center;
+  }
+  &__input {
+    margin: 0 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #333;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 6px;
+  }
+}
+
+code-input {
+  width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  --item-spacing: 30px;
+  --item-height: 3rem;
+  font-size : 25px
+
+}
+
+:host ::ng-deep span:first-child {
+  padding-left: initial !important;
+}
+

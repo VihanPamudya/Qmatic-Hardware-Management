@@ -1,0 +1,343 @@
+<div class="qm-booking-flow-main">
+  <div class="qm-booking-flow" [ngClass]="{ 'qm-booking-flow__rtl': isRtl }">
+    <mat-drawer-container class="example-container" autosize>
+      <mat-drawer #drawer mode="side" [position]="isRtl ? 'start' : 'end'" *ngIf="unitTypeObject.length !== 0">
+        <button
+          type="button"
+          class="qm-btn qm-btn--secondary"
+          (click)="close()"
+          style="float: right;"
+        >
+          <i
+            class="qm-action-btn__icon icon-close-smaller"
+            aria-hidden="true"
+            style="width: 6px;"
+          ></i>
+        </button>
+
+        <div class="check" style="margin: 30px;">
+          <div style="font-size: 20px; margin-bottom: 10px;">
+            Star Micronics
+          </div>
+          <table>
+            <tr class="qm-modal__data-row">
+              <td class="qm-modal__data-name">
+                <div class="qm-modal__data-field">
+                  Type
+                </div>
+              </td>
+              <td>:</td>
+              <td class="qm-modal__data-info">
+                <div class="qm-modal__data-field">Printer/Scanner</div>
+              </td>
+            </tr>
+            <tr class="qm-modal__data-row">
+              <td class="qm-modal__data-name">
+                <div class="qm-modal__data-field">
+                  Status
+                </div>
+              </td>
+              <td>:</td>
+              <td class="qm-modal__data-info">
+                <div class="qm-modal__data-field">Connected</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="check" style="margin: 30px;">
+          <div style="font-size: 20px; margin-bottom: 10px;">
+            Star Micronics
+          </div>
+          <table>
+            <tr class="qm-modal__data-row">
+              <td class="qm-modal__data-name">
+                <div class="qm-modal__data-field">
+                  Type
+                </div>
+              </td>
+              <td>:</td>
+              <td class="qm-modal__data-info">
+                <div class="qm-modal__data-field">Printer/Scanner</div>
+              </td>
+            </tr>
+            <tr class="qm-modal__data-row">
+              <td class="qm-modal__data-name">
+                <div class="qm-modal__data-field">
+                  Status
+                </div>
+              </td>
+              <td>:</td>
+              <td class="qm-modal__data-info">
+                <div class="qm-modal__data-field">Connected</div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+      </mat-drawer>
+
+      <div
+        class="qm-blocking-list__main"
+        [ngStyle]="{ height: dashboardRowCSSHeight }"
+      >
+        <div
+          class="mat-elevation-z8 qm-blocking-list__container"
+          [ngClass]="{ 'qm-blocking-list__main__rtl': isRtl }"
+        >
+          <table
+            *ngIf="unitTypeObject.length !== 0"
+            id="app-full-list"
+            mat-table
+            [dataSource]="dataSource"
+            matSort
+            class="qm-blocking-list__table"
+            multiTemplateDataRows
+            (matSortChange)="sortData($event)"
+            matSortActive="unitName"
+          >
+            <ng-container matColumnDef="unitName">
+              <th
+                class="qm-blocking-list__table__header-cell"
+                [ngClass]="{ 'qm-blocking-list__table__rtl': isRtl }"
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ "device.list.unit.id" | translate }}
+              </th>
+              <td
+                mat-cell
+                class="qm-blocking-list__table__data-cell"
+                [ngClass]="{
+                  'qm-blocking-list__table__data-cell__rtl': isRtl,
+                  'td-active': row === expandedElement
+                }"
+                *matCellDef="let row"
+              >
+                {{ row.unitName }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="deviceIP">
+              <th
+                class="qm-blocking-list__table__header-cell"
+                [ngClass]="{ 'qm-blocking-list__table__rtl': isRtl }"
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ "device.list.device.ip" | translate }}
+              </th>
+              <td
+                mat-cell
+                class="qm-blocking-list__table__data-cell"
+                [ngClass]="{
+                  'qm-blocking-list__table__data-cell__rtl': isRtl,
+                  'td-active': row === expandedElement
+                }"
+                *matCellDef="let row"
+              >
+                {{ row.unitInfo?.networkInfo?.deviceIP }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="appVersion">
+              <th
+                class="qm-blocking-list__table__header-cell"
+                [ngClass]="{ 'qm-blocking-list__table__rtl': isRtl }"
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ "device.list.app.version" | translate }}
+              </th>
+              <td
+                mat-cell
+                class="qm-blocking-list__table__data-cell"
+                [ngClass]="{
+                  'qm-blocking-list__table__data-cell__rtl': isRtl,
+                  'td-active': row === expandedElement
+                }"
+                *matCellDef="let row"
+              >
+                {{ row.unitInfo?.appInfo?.appVersion }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="updateTime">
+              <th
+                class="qm-blocking-list__table__header-cell"
+                [ngClass]="{ 'qm-blocking-list__table__rtl': isRtl }"
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ "device.list.update.time" | translate }}
+              </th>
+              <td
+                mat-cell
+                class="qm-blocking-list__table__data-cell"
+                [ngClass]="{
+                  'qm-blocking-list__table__data-cell__rtl': isRtl,
+                  'td-active': row === expandedElement
+                }"
+                *matCellDef="let row"
+              >
+                {{ formatDate(row.lastUpdateTime) }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+              <th
+                class="qm-blocking-list__table__header-cell"
+                [ngClass]="{ 'qm-blocking-list__table__rtl': isRtl }"
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ "device.list.status" | translate }}
+              </th>
+              <td
+                mat-cell
+                class="qm-blocking-list__table__data-cell"
+                [ngClass]="{
+                  'qm-blocking-list__table__data-cell__rtl': isRtl,
+                  'td-active': row === expandedElement
+                }"
+                *matCellDef="let row"
+              >
+                <span
+                  [ngClass]="{
+                    'qm-device-table__disconnected': !row.connected,
+                    'qm-device-table__connected': row.connected
+                  }"
+                >
+                  {{
+                    row.connected
+                      ? ("device.connected" | translate)
+                      : ("device.disconnected" | translate)
+                  }}
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="connectedDevices">
+              <th
+                class="qm-blocking-list__table__header-cell"
+                [ngClass]="{ 'qm-blocking-list__table__rtl': isRtl }"
+                *matHeaderCellDef
+                mat-sort-header
+              >
+                {{ "device.list.connected.devices" | translate }}
+              </th>
+              <td
+                mat-cell
+                class="qm-blocking-list__table__data-cell"
+                [ngClass]="{
+                  'qm-blocking-list__table__data-cell__rtl': isRtl,
+                  'td-active': row === expandedElement
+                }"
+                *matCellDef="let row"
+              >
+                <button
+                  type="button"
+                  mat-button
+                  (click)="click(row)"
+                  [disabled]="row.unitInfo?.deviceInfo?.connectedDevices ? false : true"
+                  style="font-size: 12px"
+                >
+                  {{
+                    connectedDevicesLength(
+                      row.unitInfo?.deviceInfo?.connectedDevices
+                    )
+                  }}
+                </button>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+              <th
+                class="qm-blocking-list__table__header-cell"
+                [ngClass]="{ 'qm-blocking-list__table__rtl': isRtl }"
+                *matHeaderCellDef
+              >
+                {{ "device.list.action" | translate }}
+              </th>
+              <td
+                mat-cell
+                class="qm-blocking-list__table__data-cell"
+                [ngClass]="{
+                  'qm-blocking-list__table__data-cell__rtl': isRtl,
+                  'td-active': row === expandedElement
+                }"
+                *matCellDef="let row"
+              >
+                <div
+                  *ngIf="row.isLoader"
+                  class="qm-blocking-list__table__buttons"
+                >
+                  <mat-spinner diameter="20" strokeWidth="2"></mat-spinner>
+                </div>
+
+                <div
+                  *ngIf="!row.isLoader"
+                  class="qm-blocking-list__table__buttons"
+                >
+                  <button
+                    (click)="openDeviceSettingModal(row, row.unitId)"
+                    class="qm-action-btn qm-action-btn qm-blocking-list__table__edit-btn"
+                    [ngClass]="{ 'qm-blocking-list__table__editrtl': isRtl }"
+                    title="{{ 'button.edit' | translate }}"
+                  >
+                    <i
+                      class="qm-action-btn__icon icon-edit"
+                      aria-hidden="true"
+                    ></i>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr
+              mat-header-row
+              *matHeaderRowDef="displayedColumns; sticky: true"
+            ></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+            <tr class="mat-row" *matNoDataRow>
+              <td
+                *ngIf="dataSource.filter.length > 0"
+                class="mat-cell"
+                colspan="4"
+              >
+                {{ "label.no.data.matching" | translate }} "{{
+                  dataSource.filter
+                }}"
+              </td>
+            </tr>
+          </table>
+
+          <div *ngIf="unitTypeObject.length === 0" class="qm-empty-table">
+            <div class="qm-empty-table__heading"></div>
+            <div class="qm-empty-table__content">
+              <i
+                class="qm-action-btn__icon icon-search qm-empty-table__icon"
+                aria-hidden="true"
+              ></i>
+              <div class="qm-empty-table__text">
+                {{ "device.list.default.placeholder" | translate }}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="qm-pagination-container"
+          [ngClass]="{ 'qm-pagination-container__rtl': isRtl }"
+        >
+          <mat-paginator
+            [ngClass]="{ 'qm-pagination-container__paginator__rtl': isRtl }"
+            [pageSizeOptions]="[5, 10, 25]"
+            showFirstLastButtons
+          ></mat-paginator>
+        </div>
+      </div>
+    </mat-drawer-container>
+  </div>
+</div>

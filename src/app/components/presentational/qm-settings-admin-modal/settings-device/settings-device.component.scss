@@ -1,0 +1,29 @@
+h1{
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qm-modal{
+
+  &__box-container{
+  justify-content: center;
+  height: 450px;
+  border-radius: 10px;
+
+  }
+  &__footer{
+    margin-top: auto;
+  }
+}
+
+.qm-standard-text-field{
+  &__label{
+    margin-bottom: 0rem;
+  }
+}
+
+.qm-modal-col-6{
+  margin-bottom: auto;
+}

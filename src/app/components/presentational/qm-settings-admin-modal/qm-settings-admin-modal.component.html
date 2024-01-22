@@ -1,0 +1,96 @@
+<div
+  class="qm-modal qm-add-customer-modal qm-form-modal"
+  [ngClass]="{ 'qm-modal__rtl': isRtl }"
+>
+  <div class="qm-modal__box-container">
+    <div>
+      <div class="qm-generic-layout qm-generic-layout--align-right">
+        <button
+          type="button"
+          class="qm-btn qm-btn--secondary"
+          (click)="close()"
+        >
+          <i
+            class="qm-action-btn__icon icon-close-smaller"
+            aria-hidden="true"
+          ></i>
+        </button>
+      </div>
+    </div>
+    <div class="qm-modal__body">
+      <div class="qm-modal-row">
+        <div class="qm-modal-col-12">
+          <mat-sidenav-container>
+            <mat-sidenav mode="side" opened>
+              <button
+                mat-button
+                class="menu-button"
+                (click)="settingsClicked('settings')"
+              >
+                <!-- <mat-icon></mat-icon> -->
+                <span>{{ "label.name.settings" | translate }}</span>
+              </button>
+              <button *ngIf="valueToReceive"
+                mat-button
+                class="menu-button"
+                [disabled]="isDisable"
+                (click)="settingsClicked('automaticupgrade')"
+              >
+                <!-- <mat-icon></mat-icon> -->
+                <span>{{ "label.name.automaticupgrade" | translate }}</span>
+              </button>
+              <button *ngIf="valueToReceive"
+                mat-button
+                class="menu-button"
+                [disabled]="isDisable"
+                (click)="settingsClicked('pin')"
+              >
+                <!-- <mat-icon></mat-icon> -->
+                <span>{{ "label.name.changepin" | translate }}</span>
+              </button>
+              <button
+                mat-button
+                class="menu-button"
+                [disabled]="isDisable"
+                (click)="settingsClicked('logs')"
+
+              >
+                <!-- <mat-icon></mat-icon> -->
+                <span>{{ "label.name.logs" | translate }}</span>
+              </button>
+
+              <button *ngIf="valueToReceive"
+                mat-button
+                class="menu-button"
+                [disabled]="isDisable"
+                (click)="settingsClicked('cache')"
+              >
+                <!-- <mat-icon></mat-icon> -->
+                <span>{{ "label.name.cache" | translate }}</span>
+              </button>
+              <button
+                mat-button
+                class="menu-button"
+                [disabled]="isDisable"
+                (click)="settingsClicked('unitinfo')"
+              >
+                <!-- <mat-icon></mat-icon> -->
+                <span>{{ "label.name.unitinfo" | translate }}</span>
+              </button>
+            </mat-sidenav>
+            <mat-sidenav-content
+              [ngClass]="{ 'mat-sidenav-content__rtl': isRtl }"
+            >
+              <div class="content" [ngClass]="{ content__rtl: isRtl }">
+                <ng-container
+                  [ngComponentOutlet]="selectedComponent"
+                ></ng-container>
+              </div>
+            </mat-sidenav-content>
+          </mat-sidenav-container>
+        </div>
+      </div>
+    </div>
+    <div class="qm-modal__footer"></div>
+  </div>
+</div>

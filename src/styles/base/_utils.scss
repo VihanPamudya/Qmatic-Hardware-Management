@@ -1,0 +1,27 @@
+.qm-hide {
+  display: none !important;
+}
+
+.qm-full-height {
+  height: 100%;
+}
+.qm-full-width {
+  width: 100%;
+}
+
+.qm-emphasis {
+  font-weight: $font-weight-medium;
+}
+
+.qm-underline {
+  text-decoration: underline;
+}
+
+.qm-highlight {
+  font-weight: $font-weight-medium;
+  text-decoration: underline;
+}
+
+.qm-required-star {
+  color: $primary-color;
+}

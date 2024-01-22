@@ -1,0 +1,56 @@
+export * from './actions';
+export * from './effects';
+export * from './reducers';
+export * from './services';
+
+import {
+  SystemInfoDataService,
+  SystemInfoDispatchers,
+  SystemInfoSelectors,
+  LicenseDataService,
+  LicenseDispatchers,
+  LicenseInfoSelectors,
+  UserRoleDataService,
+  UserRoleDispatchers,
+  UserRoleSelectors,
+  AccountDataService,
+  AccountDispatchers,
+  BranchDataService,
+  BranchDispatchers,
+  BranchSelectors,
+  UserDataService,
+  UserDispatchers,
+  UserSelectors,
+  UnitDataService,
+  UnitDispatchers,
+  UnitSelectors,
+  DeviceDataService,
+  DeviceDispatchers,
+  DeviceSelectors,
+} from './services';
+
+export const storeServices = [
+  SystemInfoDataService,
+  SystemInfoDispatchers,
+  SystemInfoSelectors,
+  LicenseDataService,
+  LicenseDispatchers,
+  LicenseInfoSelectors,
+  UserRoleDataService,
+  UserRoleDispatchers,
+  UserRoleSelectors,
+  AccountDataService,
+  AccountDispatchers,
+  BranchDataService,
+  BranchDispatchers,
+  BranchSelectors,
+  UserDataService,
+  UserDispatchers,
+  UserSelectors,
+  UnitDataService,
+  UnitDispatchers,
+  UnitSelectors,
+  DeviceDataService,
+  DeviceSelectors,
+  DeviceDispatchers,
+];

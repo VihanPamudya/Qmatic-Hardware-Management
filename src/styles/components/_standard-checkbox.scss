@@ -1,0 +1,85 @@
+.qm-standard-checkbox {
+
+  &__label {
+    width: 100%;
+    margin-bottom: 0;
+  }
+
+  &__input {
+    &:focus {
+      & ~ .qm-standard-checkbox__selector {
+        background: $list-item-hover-color;
+      }
+    }
+
+    &:checked {
+      & ~ .qm-standard-checkbox__selector {
+        background: $list-item-selected-color;
+        font-weight: $font-weight-regular;
+
+        .qm-standard-checkbox__icon {
+          color: $secondary-color;
+        }
+      }
+
+      &[disabled] {
+        & ~ .qm-standard-checkbox__selector {
+          background: $list-item-hover-color;
+
+          &:hover,
+          &:focus {
+            background: $list-item-hover-color;
+          }
+
+          .qm-standard-checkbox__icon {
+            color: $dark-transparent12;
+          }
+        }
+      }
+    }
+
+    &[disabled] {
+      & ~ .qm-standard-checkbox__selector {
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+          background: transparent;
+        }
+      }
+    }
+
+    &[type="checkbox"] ~ .qm-standard-checkbox__selector {
+      padding: rem($list-item-padding 20px $list-item-padding $base-unit * 3);
+    }
+  }
+
+  &__selector {
+    display: block;
+    position: relative;
+    padding: rem($list-item-padding 14px $list-item-padding);
+    border: 1px solid transparent;
+    font-weight: $font-weight-light;
+
+    &:hover,
+    &:focus {
+      background: $list-item-hover-color;
+    }
+  }
+
+  &__text {
+    display: block;
+    user-select: none;
+    word-break: break-all; // IE fallback
+    word-break: break-word;
+  }
+
+  &__icon {
+    font-size: rem(24px);
+    color: $dark-transparent12;
+    position: absolute;
+    left: rem(10px);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}

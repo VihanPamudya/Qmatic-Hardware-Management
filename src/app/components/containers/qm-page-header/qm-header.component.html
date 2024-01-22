@@ -1,0 +1,154 @@
+<header
+  class="qm-header"
+  [ngClass]="{ 'qm-header__rtl': isRtl, 'dark_top-bar__header': isDarkHeader }"
+>
+  <nav class="qm-header__left">
+    <a
+      href="/"
+      *ngIf="!isVisitManager"
+      (click)="homeClick($event)"
+      class="qm-header__brand-logo-container"
+      [ngClass]="{ 'qm-header__brand-logo-container__rtl': isRtl, 'dark_top-bar__dark-header-container': isDarkHeader }"
+    >
+      <span
+        class="qm-action-btn qm-action-btn--only-icon qm-header__home-btn"
+        [ngClass]="{ 'dark_top-bar__home': isDarkHeader }"
+      >
+        <!-- <i class="qm-action-btn__icon material-icons-round" aria-hidden="true">
+          home</i
+        > -->
+        <i class="qm-action-btn__icon icon-home" aria-hidden="true"></i>
+      </span>
+      <span class="qm-header__brand-logo-container"
+      [ngClass]="{ 'qm-header__brand-logo-container__rtl': isRtl}">
+        <img
+          class="qm-header__brand-logo"
+          [src]="isDarkHeader ? brandLogoLightSrc : brandLogoSrc"
+          alt=""
+          role="presentation"
+        />
+      </span>
+    </a>
+    <span
+      *ngIf="isVisitManager"
+      style="cursor: auto"
+      class="qm-header__brand-logo-container"
+    >
+      <img
+        class="qm-header__brand-logo"
+        [src]="brandLogoSrc"
+        alt=""
+        role="presentation"
+      />
+    </span>
+    <span class="qm-header__application-name">
+      <span> {{ "device.application.name" | translate }} </span>
+      <!-- Commented until dark and light header feature enable -->
+      <!-- <span *ngIf="isDarkHeader"> {{ applicationName | translate }} </span>
+      <span *ngIf="!isDarkHeader"> Serve </span>  -->
+    </span>
+  </nav>
+
+  <nav class="qm-header__middle">
+    <div
+      class="qm-header__profile-setting qm-header__profile-setting--branch"
+      [ngClass]="{
+        'dark_top-bar__text': isDarkHeader,
+        'qm-header__settings-admin-active': !isPreventHeaderNavigations
+      }"
+    >
+      <span class="qm-header__profile-setting-text" *ngIf="selectedBranch">{{ selectedBranch.name }}</span>
+    </div>
+  </nav>
+
+  <nav class="qm-header__right">
+    <ul class="qm-header-icon-list">
+      <li
+        *ngIf="isVisitManager"
+        class="qm-header__nav-list-item qm-header__cloud-link"
+        (click)="redirectURL()"
+      >
+        <a
+          class="qm-header__cloud-link-container"
+          [href]="homeUrl"
+          [target]="targetPage"
+          [ngClass]="{ 'dark_top-bar__text': isDarkHeader }"
+        >
+          <span> {{ "info.header.cloud.url.link" | translate }}</span>
+
+          <i class="qm-action-btn__icon material-icons-outlined">
+            open_in_new</i
+          >
+        </a>
+      </li>
+      <li class="qm-header__nav-list-item" *ngIf="selectedBranch">
+        <button
+          routerLink="/grid-view"
+          class="qm-action-btn qm-action-btn--only-icon qm-header__grid-btn"
+          [ngClass]="{
+            'dark_top-bar__icons': isDarkHeader,
+            'qm-header__settings-admin-active': isPreventHeaderNavigations
+          }"
+          (click)="navigateToGridView()"
+        >
+          <i class="qm-action-btn__icon material-icons-outlined"> grid_view</i>
+        </button>
+
+        <a
+          routerLink="/"
+          (click)="navigateToDeviceList()"
+          class="qm-action-btn qm-action-btn--only-icon qm-header__settings-back-btn"
+          [ngClass]="{'qm-header__settings-back-btn__rtl':isRtl,
+            'qm-header__settings-admin-active': !isPreventHeaderNavigations
+          }"
+        >
+          <i *ngIf="!isRtl" class="qm-action-btn__icon icon-caret-left" aria-hidden="true"></i>
+          <i *ngIf="isRtl" class="qm-action-btn__icon icon-caret-right" aria-hidden="true"></i>
+          <span>{{ "device.settings.backto.deviceList" | translate }}</span>
+        </a>
+      </li>
+      <li class="qm-header__nav-list-item">
+        <a
+          href="/help"
+          target="_blank"
+          class="qm-action-btn qm-action-btn--only-icon qm-header__help-btn"
+          [ngClass]="{'qm-header__help-btn__rtl' : isRtl, 'dark_top-bar__icons': isDarkHeader }"
+        >
+          <!-- <i class="qm-action-btn__icon material-icons-outlined">
+            help_outline</i
+          > -->
+          <i class="qm-action-btn__icon icon-help" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li>
+        <span
+          class="qm-header__user-name"
+          [ngClass]="{ 'dark_top-bar__text': isDarkHeader }"
+          >{{ userFullName$ | async }}</span
+        >
+      </li>
+      <li class="qm-header__nav-list-item">
+        <a
+          href="/logout.jsp"
+          (click)="logout($event)"
+          class="qm-action-btn qm-action-btn--only-icon qm-header__logout-btn"
+          [ngClass]="{ 'dark_top-bar__icons': isDarkHeader }"
+        >
+          <!-- <i class="qm-action-btn__icon material-icons-round" aria-hidden="true"
+            >logout</i
+          > -->
+          <i *ngIf="!isRtl"
+            class="qm-action-btn__icon icon-exit"
+            aria-hidden="true"
+            [ngClass]="{ 'qm-action-btn__icon__rtl': isRtl }"
+          ></i>
+          <i *ngIf="isRtl"
+          class="qm-action-btn__icon icon-exit-rtl"
+          aria-hidden="true"
+          [ngClass]="{ 'qm-action-btn__icon__rtl': isRtl }"
+        ></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

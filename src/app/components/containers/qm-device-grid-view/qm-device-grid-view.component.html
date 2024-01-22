@@ -1,0 +1,135 @@
+<div class="qm-app">
+  <div class="qm-grid" *ngIf="unitTypeObject.length > 0">
+    <div class="qm-dashboard">
+      <div class="qm-dashboard__body" id="dashboard-body">
+        <div class="content" [ngClass]="{ 'qm-dashboard__body__rtl': isRtl }">
+          <div fxLayout="row wrap" fxLayoutGap="16px grid">
+            <div
+              fxFlex="25%"
+              fxFlex.xs="100%"
+              fxFlex.sm="33%"
+              *ngFor="let device of responseObject"
+            >
+              <mat-card class="mat-elevation-z4" style="height: 100%">
+                <mat-card-header>
+                  <mat-card-title class="subtitle-container"
+                    >{{ getUnitName(device.unitName)
+                    }}<ng-container *ngIf="device.connected; else disconnected">
+                      <svg
+                        [class.connected]="device.connected"
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 576 512"
+                      >
+                        <path
+                          d="M96 0C78.3 0 64 14.3 64 32v96h64V32c0-17.7-14.3-32-32-32zM288 0c-17.7 0-32 14.3-32 32v96h64V32c0-17.7-14.3-32-32-32zM32 160c-17.7 0-32 14.3-32 32s14.3 32 32 32v32c0 77.4 55 142 128 156.8V480c0 17.7 14.3 32 32 32s32-14.3 32-32V412.8c12.3-2.5 24.1-6.4 35.1-11.5c-2.1-10.8-3.1-21.9-3.1-33.3c0-80.3 53.8-148 127.3-169.2c.5-2.2 .7-4.5 .7-6.8c0-17.7-14.3-32-32-32H32zM576 368a144 144 0 1 0 -288 0 144 144 0 1 0 288 0zm-76.7-43.3c6.2 6.2 6.2 16.4 0 22.6l-72 72c-6.2 6.2-16.4 6.2-22.6 0l-40-40c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L416 385.4l60.7-60.7c6.2-6.2 16.4-6.2 22.6 0z"
+                        />
+                      </svg>
+                    </ng-container>
+
+                    <ng-template #disconnected>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 576 512"
+                      >
+                        <path
+                          d="M96 0C78.3 0 64 14.3 64 32v96h64V32c0-17.7-14.3-32-32-32zM288 0c-17.7 0-32 14.3-32 32v96h64V32c0-17.7-14.3-32-32-32zM32 160c-17.7 0-32 14.3-32 32s14.3 32 32 32v32c0 77.4 55 142 128 156.8V480c0 17.7 14.3 32 32 32s32-14.3 32-32V412.8c12.3-2.5 24.1-6.4 35.1-11.5c-2.1-10.8-3.1-21.9-3.1-33.3c0-80.3 53.8-148 127.3-169.2c.5-2.2 .7-4.5 .7-6.8c0-17.7-14.3-32-32-32H32zM432 512a144 144 0 1 0 0-288 144 144 0 1 0 0 288zm59.3-180.7L454.6 368l36.7 36.7c6.2 6.2 6.2 16.4 0 22.6s-16.4 6.2-22.6 0L432 390.6l-36.7 36.7c-6.2 6.2-16.4 6.2-22.6 0s-6.2-16.4 0-22.6L409.4 368l-36.7-36.7c-6.2-6.2-6.2-16.4 0-22.6s16.4-6.2 22.6 0L432 345.4l36.7-36.7c6.2-6.2 16.4-6.2 22.6 0s6.2 16.4 0 22.6z"
+                        />
+                      </svg> </ng-template
+                  ></mat-card-title>
+                  <mat-card-subtitle
+                    >{{
+                      device.connected
+                        ? ("device.connected" | translate)
+                        : ("device.disconnected" | translate)
+                    }}
+                  </mat-card-subtitle>
+                </mat-card-header>
+                <div class="image-container">
+                  <img
+                    mat-card-image
+                    [ngStyle]="{
+                      'width.%': device.unitInfo?.deviceInfo?.connectedDevices
+                        ? '30'
+                        : '40'
+                    }"
+                    [src]="getDeviceImage(device.unitType)"
+                  />
+                  <mat-accordion
+                    class="example-headers-align"
+                    [ngClass]="{ 'example-headers-align__rtl': isRtl }"
+                    *ngIf="device.unitInfo?.deviceInfo?.connectedDevices"
+                  >
+                    <mat-expansion-panel hideToggle [expanded]="true">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title> Connected Devices </mat-panel-title>
+                        <mat-panel-description>
+                          2
+                          <mat-icon>devices</mat-icon>
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <div
+                        style="display: flex; justify-content: space-between"
+                      >
+                        <p>Printer/Scanner</p>
+
+                        <div
+                          matTooltip="Connected"
+                          matTooltipPosition="right"
+                          aria-label="Button that displays a tooltip when focused or hovered over"
+                          class="circle"
+                          [ngClass]="{
+                            'qm-card-background__connected': !device.connected,
+                            'qm-card-background__disconnected': device.connected
+                          }"
+                        ></div>
+                      </div>
+                      <div
+                        style="display: flex; justify-content: space-between"
+                      >
+                        <p>Printer/Scanner</p>
+                        <div
+                          matTooltip="Disconnected"
+                          matTooltipPosition="right"
+                          aria-label="Button that displays a tooltip when focused or hovered over"
+                          class="circle"
+                          [ngClass]="{
+                            'qm-card-background__connected': device.connected,
+                            'qm-card-background__disconnected':
+                              !device.connected
+                          }"
+                        ></div>
+                      </div>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </div>
+                <mat-card-content>
+                  <mat-card-subtitle style="font-weight: normal; color: black">
+                    {{
+                      getDeviceDescription(
+                        device.connected,
+                        device.unitInfo,
+                        device.lastUpdateTime
+                      ) | translate
+                    }}
+                  </mat-card-subtitle>
+                </mat-card-content>
+              </mat-card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="unitTypeObject.length === 0">
+    <app-qm-main>
+      <div class="empty-message">
+        <div class="empty-message__empty-text">
+          {{'label.list.no.configure.device' | translate}}
+        </div>
+      </div>
+    </app-qm-main>
+  </div>
+</div>

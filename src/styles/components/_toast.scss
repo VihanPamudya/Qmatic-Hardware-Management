@@ -1,0 +1,98 @@
+.toast-container {
+  margin: rem(0 $standard-margin 0 $standard-margin);
+  width: 100%;
+  pointer-events: auto !important;
+}
+
+.toast-close-button {
+  height: 24px;
+  width: 24px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  color: black !important;
+  border: 0;
+  top: 0 !important;
+  margin: 0 10px;
+  background: transparent;
+  cursor: pointer;
+  order: 1;
+
+  // span {
+  //   @include sr-only();
+  // }
+
+  &:before {
+    content: "\e907";
+    @extend .icomoon-styles;
+    font-size: rem(16px);
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    &:before {
+      color: black !important;;
+    }
+  }
+}
+
+// Block
+.qm-toast {
+  display: flex;
+  align-items: center;
+  padding: rem($standard-padding $standard-padding / 2 $standard-padding $standard-padding * 1.5);
+  color: $toast-text-color;
+  background: $tertiary-color;
+  max-width: 700px;
+  width: 100%;
+  z-index: 3;
+  margin: 0 auto;
+
+
+  & + & {
+    border-top: 1px solid $light-transparent42;
+  }
+
+  // Elements
+  &__layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  &__icon {
+    font-size: rem(28px);
+    margin-right: rem($standard-margin / 2);
+
+  }
+
+  &__message {
+    flex: 1 1 auto;
+    color: rgba($color: #000000, $alpha: 0.9);
+    font-size: 14px;
+    padding: 0 15px;
+    font-family: $font-family;
+    font-weight: 400;
+  }
+
+  // Modifiers
+  &--success {
+    background: #ECFAE5;
+    border-bottom: 3px solid #436E2D;
+    font-size: 1.7em;
+    color: #436E2D;
+  }
+
+  &--danger {
+    background: #FDF1F4;
+    border-bottom: 3px solid #BE193D;
+    font-size: 2em;
+    color: #BE193D;
+  }
+}
+
+.toast-top-right {
+  top: 55px !important;
+}

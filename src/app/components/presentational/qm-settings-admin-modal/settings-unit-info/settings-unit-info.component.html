@@ -1,0 +1,90 @@
+<h1>{{ "label.name.unitinfo" | translate }}</h1>
+<div>
+  <div class="qm-modal__box-container">
+    <div class="qm-modal__header">
+      <span class="qm-modal__headline">
+        {{ "field.settingsUpdateForm.deviceinfo" | translate }}</span>
+    </div>
+    <div class="qm-modal__body">
+      <table style="width:100%">
+        <tr class="qm-modal__data-row" *ngIf="androidVersion">
+          <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.androidversion" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{androidVersion}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="modelCode">
+          <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.modelcode" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{modelCode}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="modelName">
+          <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.modelname" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{modelName}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="softwareVersion">
+          <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.softwareversion" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{softwareVersion}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="deviceDUID">
+          <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.deviceduid" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{deviceDUID}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="deviceFirmwareVersion">
+          <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.devicefirmwareversion" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{deviceFirmwareVersion}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="deviceModel">
+          <td class="qm-modal__data-name" ><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.devicemodel" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{deviceModel}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="deviceModelCode">
+          <td class="qm-modal__data-name" ><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.devicemodelcode" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{deviceModelCode}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="deviceRealModel">
+          <td class="qm-modal__data-name" ><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.devicerealmodel" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{deviceRealModel}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="deviceVersion">
+          <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.deviceversion" | translate }}</div></td>
+          <td>:</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{deviceVersion}}</div></td>
+        </tr>
+        <tr class="qm-modal__data-row" *ngIf="userAgent">
+          <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.deviceinfo.useragent" | translate }}</div></td>
+          <td> :</td>
+          <td class="qm-modal__data-info"><div class="qm-modal__data-field">{{userAgent}}</div></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="qm-modal__box-container">
+    <div class="qm-modal__header">
+      <span class="qm-modal__headline">{{ "field.settingsUpdateForm.networkinfo" | translate }}</span>
+    </div>
+    <table>
+      <tr class="qm-modal__data-row" *ngIf="deviceIP">
+        <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.networkinfo.deviceIP" | translate }}</div></td>
+        <td>:</td>
+        <td class="qm-modal__data-info"><div  class="qm-modal__data-field">{{deviceIP}}</div></td>
+      </tr>
+      <tr class="qm-modal__data-row" *ngIf="deviceMAC">
+        <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.networkinfo.deviceMAC" | translate }}</div></td>
+        <td>:</td>
+        <td class="qm-modal__data-info"><div  class="qm-modal__data-field">{{deviceMAC}}</div></td>
+      </tr>
+      <tr class="qm-modal__data-row" *ngIf="networkMode">
+        <td class="qm-modal__data-name"><div class="qm-modal__data-field">{{ "field.settingsUpdateForm.networkinfo.networkmode" | translate }}</div></td>
+        <td>:</td>
+        <td class="qm-modal__data-info"><div  class="qm-modal__data-field">{{networkMode}}</div></td>
+      </tr>
+    </table>
+  </div>
+</div>

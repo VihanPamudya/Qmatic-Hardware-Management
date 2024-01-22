@@ -1,0 +1,70 @@
+h1{
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qm-modal{
+
+  &__box-container{
+  justify-content: center;
+  height: 450px;
+  border-radius: 10px;
+
+  }
+  &__footer{
+    margin-top: auto;
+  }
+}
+
+.qm-text{
+  margin-bottom: 20px;
+  font-size: 0.875rem;
+  line-height: 1rem;
+  color: rgba(0, 0, 0, 0.62);
+}
+.qm-standard-text-field{
+  &__input-container{
+    margin-bottom: 1rem;
+  }
+}
+
+::ng-deep .cdk-overlay-container{
+  z-index: 10000;
+}
+
+.timepicker__rtl{
+  ::ng-deep .mdc-text-field {
+    padding: 0 10px 0 0 !important;
+  }
+
+}
+
+::ng-deep .ngx-mat-timepicker-toggle {
+  display: none;
+}
+
+::ng-deep .mat-mdc-form-field-has-icon-suffix .mat-mdc-text-field-wrapper {
+  padding-right: 0;
+  padding-left: 10px;
+}
+
+::ng-deep svg {
+  width: 25px;
+  height: 25px;
+}
+
+
+::ng-deep .ngx-mat-timepicker__control--third{
+  pointer-events: none;
+  opacity: 0.5;
+
+  ::ng-deep .ngx-mat-timepicker-control .arrows-wrap {
+    pointer-events: none;
+  }
+}
+
+::ng-deep .mdc-text-field__input{
+  width: auto;
+}

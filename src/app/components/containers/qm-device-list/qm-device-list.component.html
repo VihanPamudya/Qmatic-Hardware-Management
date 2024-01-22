@@ -1,0 +1,92 @@
+<div class="qm-app">
+  <app-qm-main>
+    <div class="qm-dashboard">
+      <div
+        class="qm-dashboard__header"
+        [ngClass]="{ 'qm-dashboard__rtl': isRtl }"
+      >
+        <div class="qm-full-height qm-dashboard__header-container">
+          <app-qm-branch-list
+          ></app-qm-branch-list>
+        </div>
+      </div>
+
+      <!-- <div class="qm-loader-container">
+        <app-qm-loader></app-qm-loader>
+      </div> -->
+
+      <div
+        class="qm-dashboard__body"
+        id="dashboard-body"
+      >
+        <div class="qm-dashboard__content">
+          <div class="qm-dashboard-row">
+            <div class="qm-dashboard-col-12">
+              <div
+                class="qm-dashboard__body__header"
+                [ngClass]="{ 'qm-dashboard__body__rtl': isRtl }"
+                id="dashboard-header"
+              >
+                <div class="container">
+                  <div class="start-position">
+                    <!-- Content for the start position -->
+                    <div class="qm-dashboard-col-6">
+                      <h2
+                        class="qm-headline qm-headline--large qm-dashbord-title"
+                      >
+                        <span *ngIf="!selectedBranch">{{
+                          "device.heading.entry" | translate
+                        }}</span>
+                        <span *ngIf="selectedBranch"
+                          >{{ "device.list.heading" | translate }}
+                          {{ selectedBranch.name }}</span
+                        >
+                      </h2>
+                    </div>
+                  </div>
+                  <div class="end-position" *ngIf="selectedBranch">
+                    <div class="qm-dashboard-col-6">
+                      <div class="btn-group">
+                        <button
+                          (click)="handleButtonClick(true)"
+                          class="btn-left"
+                          [ngClass]="{
+                            'btn-left__rtl': isRtl,
+                            'btn-left__select': isSelect
+                          }"
+                        >
+                          <span
+                            class="qm-btn__text"
+                            title="{{ 'button.list.displayPoint' | translate }}"
+                            >{{ "button.list.displayPoint" | translate }}</span
+                          >
+                        </button>
+                        <button
+                          (click)="handleButtonClick(false)"
+                          class="btn-right"
+                          [ngClass]="{
+                            'btn-right__rtl': isRtl,
+                            'btn-right__select': !isSelect
+                          }"
+                        >
+                          <span
+                            class="qm-btn__text"
+                            title="{{ 'button.list.entryPoint' | translate }}"
+                            >{{ "button.list.entryPoint" | translate }}</span
+                          >
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <app-qm-device-list-table></app-qm-device-list-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="qm-messages" toastContainer></div>
+  </app-qm-main>
+  <!-- <app-qm-footer></app-qm-footer> -->
+</div>

@@ -1,0 +1,59 @@
+h1{
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qm-modal{
+  &__header{
+    margin-bottom: 0.5rem;
+  }
+  &__headline{
+    font-size: 1rem;
+    font-weight: 450;
+    margin-left: 0;
+  }
+
+  &__box-container{
+  justify-content: center;
+  padding: 1rem 1.6rem;
+  border-radius: 10px;
+  margin: 1rem 1rem 0 1rem;
+
+  }
+  &__footer{
+    margin-top: auto;
+  }
+}
+
+.qm-standard-text-field{
+  &__label{
+    margin-bottom: 1rem;
+  }
+}
+
+.mat-expantion-body-item {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content:stretch
+}
+
+table{
+  width: 100%;
+}
+.qm-modal__data-row{
+  vertical-align: top;
+}
+.qm-modal__data-name{
+  width: 30%;
+}
+.qm-modal__data-info{
+  width: 65%;
+}
+.qm-modal__data-field{
+  margin-bottom: 10px;
+  font-size: 0.875rem;
+  color: rgba(0, 0, 0, 0.62);
+}

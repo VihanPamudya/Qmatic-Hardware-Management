@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import 'ngx-toastr/toastr';
+
+@import "./styles/vendor/manifest";
+
+@import "./styles/base/manifest";
+
+@import "./styles/layout/manifest";
+
+@import "./styles/components/manifest";
+
+// material icons
+@import 'material-icons/iconfont/material-icons.css';
+
+
+.bg-primary {
+    background:  #E50046 !important;
+  }
+  .ngb-dp-today {
+    background: #dae0e5;
+    border-radius: .25rem;
+  }
+
+  .container {
+    max-width: 1830px !important;
+  }

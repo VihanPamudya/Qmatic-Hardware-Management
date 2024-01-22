@@ -1,0 +1,56 @@
+h1{
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qm-modal{
+
+  &__box-container{
+  justify-content: center;
+  height: 450px;
+  border-radius: 10px;
+
+  }
+  &__footer{
+    margin-top: auto;
+  }
+}
+
+.qm-standard-text-field{
+  &__label{
+    margin-bottom: 1rem;
+    margin-top: 10px;
+  }
+}
+
+
+.qm-btn {
+  padding: 0.2rem 0.8rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.qm-btn--primary {
+  background: #3c817a;
+}
+
+.qm-line{
+  height: 30px;
+  border-radius: 8px;
+
+}
+
+
+::ng-deep .mat-mdc-progress-bar .mdc-linear-progress__buffer-bar {
+  background-color: rgb(39 114 51 / 34%);
+}
+
+::ng-deep .mdc-linear-progress__primary-bar {
+  border: 20px solid #3c817a;
+}
+
+::ng-deep .mdc-linear-progress__bar-inner {
+  position: unset !important;
+}

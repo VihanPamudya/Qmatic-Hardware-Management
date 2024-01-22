@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!--
+    
+    All modifications to this unit type must be added here.
+
+    The version number of the unit type template (utt) has the format X.Y.Z.n, for example 6.2.0.0, where:
+    -   X.Y stands for the Orchestra version, e.g. 6.2, 6.1 etc. First version of an utt for Orchestra 6.2
+        has version 6.2.0.0
+    -   Z stands for fix version, incremented for each update. First version of an utt that is 6.2.0.0 gets
+        version 6.2.1.0 when it is updated.
+    -   n is the serial number that should be updated as soon as the utt has been adapted/customised to better
+        suit your needs. Customising an utt that has version 6.2.1.0 receives version 6.2.1.1, then 6.2.1.2 etc.
+    -   When several versions of Orchestra are updated with the same utt, the lowest version number should be used. If,
+        for example, a new utt is added to version 6.0, 6.1 and 6.2 of Orchestra, it should have version number 6.0.0.0
+        in all Orchestra versions.
+
+    Below is a table with examples of how versions should be set:
+    | 6.0     | 6.1     | 6.2    | Fix                 |
+    |=========|=========|========|=====================|
+    | 2.3.0   | 2.3.0   | 2.3.0  | Starting point      |
+    |         |         | 6.2.0  | A (only 6.2)        |
+    |         | 6.1.0   | 6.2.1  | B (6.1 and 6.2)     |
+    |=========|=========|========|=====================|
+    | 2.3.0   | 2.3.0   | 2.3.0  | Starting point      |
+    |         | 6.1.0   | 6.1.0  | C (6.1 and 6.2)     |
+    |         |         | 6.2.0  | D (only 6.2)        |
+    |=========|=========|========|=====================|
+    | 2.3.0   | 2.3.0   | 2.3.0  | Starting point      |
+    | 6.0.0   | 6.0.0   | 6.0.0  | E (6.0, 6.1 and 6.2)|
+    |         | 6.1.0   | 6.1.0  | F (6.1 and 6.2)     |
+    |         |         | 6.2.0  | G (only 6.2)        |
+    | 6.0.1   | 6.1.1   | 6.2.1  | H (6.0, 6.1 and 6.2)|
+
+      
+    Version history in descending order:
+    ====================================
+    Version    Date         Comments                                  Signature
+    =========  ===========  ========================================  =========
+    7.0.0      2023-05-25   First version                             kasran
+    ===========================================================================  
+
+-->
+
+<unit name="DeviceConfiguration"
+      frameworkVersion="2"
+      unitVersion="7.0.0.12"
+      type="DISPLAY_POINT"
+      defaultNoUnits="1"
+      maxNoUnits="1"
+      description="Device Configuration UI">
+
+  <parameters>
+  
+    <parameter name="unitId"
+               type="UnitId"
+               defaultValue="DeviceConfiguration"
+               label="Unit id"
+               description="Unique id of the unit"
+               sortOrder="1"
+               readLevel="branch"
+               privilege="install:adminAdmin"/>
+      
+  </parameters>
+
+  <devices>
+    <device name="DeviceConfiguration" type="MEDIA" resources="EVENT_SCHEDULER">
+      <parameters>
+        <parameter name="heartbeat" type="Integer">30</parameter>
+      </parameters>
+      <deviceEventHandlers>
+				<deviceEventHandler handlerType="GROOVY" name="CHECK_DEVICE_STATUS">
+					<![CDATA[
+
+            import com.qmatic.qp.api.device.DeviceEvent
+
+            systemUnits = device.getState("systemUnits")
+            deviceManager = device.getDeviceManager()
+            def deviceList = []
+            for (unitObj in systemUnits){
+              deviceStatus = deviceManager.getDeviceStatus(unitObj.deviceId)
+              if (deviceStatus.connected) {
+                deviceList.add(unitObj.unitId)
+              }
+            }
+
+            DeviceEvent checkDeviceStatus = new DeviceEvent(device.getId(), "CHECK_DEVICE_STATUS")
+					  shedulerId = device.getResource("EVENT_SCHEDULER").scheduleEvent(60, checkDeviceStatus)
+        
+					  device.setState("shedulerId", shedulerId)
+
+            try {
+              DeviceEvent statusEvent = new DeviceEvent()
+              statusEvent.setUnitId(device.getId())
+              statusEvent.setEventName("CONNECTED_DEVICES")
+              statusEvent.setParameter("deviceList", deviceList)
+              device.sendEvent(statusEvent)
+            } catch(e) {
+              device.log("ERROR", "Unable to send CONNECTED_DEVICES event")
+            }    
+        
+					]]>
+				</deviceEventHandler>
+			</deviceEventHandlers>
+       <deviceCommandHandlers>
+          <deviceCommandHandler name="INIT" handlerType="GROOVY">
+          <![CDATA[
+            
+            import com.qmatic.qp.api.device.DeviceCommand
+            import com.qmatic.qp.api.device.DeviceEvent
+            import com.qmatic.qp.jiql.core.dm.handlers.BaseInitCommandHandler
+            import com.qmatic.qp.constants.QPConstants
+
+            BaseInitCommandHandler baseInitCommandHandler = new BaseInitCommandHandler()
+            DeviceCommand initCommand = new DeviceCommand()
+            initCommand.setCommand("INIT")
+            initCommand.setDeviceId(device.getId())
+
+            result = baseInitCommandHandler.handleCommand(initCommand, device.getDeviceController())
+
+            deviceManager = device.getDeviceManager()
+
+            systemUnits = device.getState("systemUnits")
+            for (unitObj in systemUnits){
+              deviceStatus = deviceManager.getDeviceStatus(unitObj.deviceId)
+              unitObj.put("connected", deviceStatus.connected)
+              unitObj.put("lastUpdateTime", deviceStatus.getTimeStamp())
+              unitObj.put("unitName", unitObj.unitName)
+              unitObj.put("unitId", unitObj.unitId)
+            }
+			      result.getResult().get("cfg").put("systemUnits", systemUnits)
+
+            shedulerId = device.getState("shedulerId")
+            if(shedulerId){
+              device.getResource("EVENT_SCHEDULER").remove(shedulerId)
+            }
+
+					  DeviceEvent checkDeviceStatus = new DeviceEvent(device.getId(), "CHECK_DEVICE_STATUS")
+					  shedulerId = device.getResource("EVENT_SCHEDULER").scheduleEvent(60, checkDeviceStatus)
+        
+					  device.setState("shedulerId", shedulerId)
+
+            return result
+      
+          ]]>
+        </deviceCommandHandler>
+      </deviceCommandHandlers>
+    </device>
+  </devices>
+
+  <unitEvents>
+    <unitEvent name="RESET">
+      <unitEventHandler type="GROOVY">
+        <![CDATA[
+        
+        import com.qmatic.qp.api.device.DeviceEvent
+        try {
+          configurationUI = unit.getDevice("DeviceConfiguration")
+          DeviceEvent resetEvent = new DeviceEvent(configurationUI.getId(),"RESET")
+          resetEvent.setParameters(event.getParameters())
+          configurationUI.sendEvent(resetEvent)
+        } catch(e) {
+          unit.log("ERROR", "Unable to send reset event to configuration for unit " + unit.getUnitId())
+        } 
+      
+        ]]>
+      </unitEventHandler>
+    </unitEvent>
+    <unitEvent name="PUBLIC.SYNC_UNIT_INIT">
+      <unitEventHandler type="GROOVY"><![CDATA[
+        
+        import com.qmatic.qp.api.device.DeviceEvent
+
+        configUnit = unit.getDevice("DeviceConfiguration")
+
+        unitInfo = event.getParameter("unitInfo");
+        unitId = event.getParameter("unitId")
+        unitName = event.getParameter("unitName")
+        deviceId = event.getParameter("deviceId")
+
+        systemUnits = configUnit.getState("systemUnits")
+        if (systemUnits == null) {
+          systemUnits = []
+        } else {
+          systemUnits = systemUnits.findAll({obj -> obj.unitId != unitId && obj.unitInfo.networkInfo.deviceMAC != unitInfo.networkInfo.deviceMAC})
+        }
+
+		    def unitObj = [unitId : unitId, unitName : unitName, deviceId : deviceId, unitInfo : unitInfo]
+        systemUnits.add(unitObj)
+
+        configUnit.setState("systemUnits", systemUnits)
+
+        deviceManager = configUnit.getDeviceManager()
+		    deviceStatus = deviceManager.getDeviceStatus(deviceId)
+
+        try {
+          DeviceEvent initEvent = new DeviceEvent()
+          initEvent.setUnitId(configUnit.getId())
+          initEvent.setEventName("SYNC_UNIT_INIT")
+          initEvent.setParameters(event.getParameters())
+          initEvent.setParameter("unitId", unitId)
+          initEvent.setParameter("connected", deviceStatus.connected)
+          initEvent.setParameter("lastUpdateTime", deviceStatus.getTimeStamp())
+          configUnit.sendEvent(initEvent)
+        } catch(e) {
+          unit.log("ERROR", "Unable to send SYNC_UNIT_INIT event")
+        } 
+      ]]>
+      </unitEventHandler>
+  </unitEvent>
+  <unitEvent name="PUBLIC.SYNC_UNIT_INFO">
+      <unitEventHandler type="GROOVY"><![CDATA[
+        
+        import com.qmatic.qp.api.device.DeviceEvent
+
+        unitId = event.getParameter("unitId")
+
+        try {
+          configUnit = unit.getDevice("DeviceConfiguration")
+          DeviceEvent initEvent = new DeviceEvent()
+          initEvent.setUnitId(configUnit.getId())
+          initEvent.setEventName("SYNC_UNIT_INFO")
+          initEvent.setParameters(event.getParameters())
+          initEvent.setParameter("unitId", unitId)
+          configUnit.sendEvent(initEvent)
+        } catch(e) {
+          unit.log("ERROR", "Unable to send SYNC_UNIT_INFO event")
+        } 
+      ]]>
+    </unitEventHandler>
+  </unitEvent>
+  <unitEvent name="PUBLIC.SYNC_UNIT_LOGS">
+      <unitEventHandler type="GROOVY"><![CDATA[
+        
+        import com.qmatic.qp.api.device.DeviceEvent
+
+        unitId = event.getParameter("unitId")
+
+        try {
+          configUnit = unit.getDevice("DeviceConfiguration")
+          DeviceEvent initEvent = new DeviceEvent()
+          initEvent.setUnitId(configUnit.getId())
+          initEvent.setEventName("SYNC_UNIT_LOGS")
+          initEvent.setParameters(event.getParameters())
+          initEvent.setParameter("unitId", unitId)
+          configUnit.sendEvent(initEvent)
+        } catch(e) {
+          unit.log("DEBUG", "Unable to send SYNC_UNIT_LOGS event")
+        } 
+      ]]>
+    </unitEventHandler>
+    </unitEvent>
+  </unitEvents>
+
+</unit>

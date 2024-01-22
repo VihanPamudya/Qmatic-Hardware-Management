@@ -1,0 +1,137 @@
+@import "../../../../styles/base/component-manifest";
+
+.empty-message {
+  display: flex;
+  margin: 0 auto;
+
+  &__empty-text {
+    display: inline-flex;
+    align-items: center;
+    font-size: rem(22px);
+    color: rgba($color: #000000, $alpha: 0.9);
+    font-weight: $font-weight-regular;
+    text-align: center;
+  }
+}
+
+.qm-grid {
+  display: flex;
+  width: 100%;
+  margin-top: 56px;
+  background: #c8e1f1;
+  min-height: calc(100vh - 56px - 40px);
+}
+
+.qm-dashboard {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+
+  &__body {
+    flex: 1 1 auto;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    overflow: hidden;
+
+    &__rtl {
+      direction: rtl;
+    }
+  }
+}
+
+.example-action-buttons {
+  padding-bottom: 20px;
+}
+
+.example-headers-align {
+  width: 100%;
+  margin-left: 15px;
+
+  &__rtl {
+    margin-right: 15px;
+  }
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-mdc-form-field + .mat-mdc-form-field {
+  margin-left: 8px;
+}
+
+svg.connected {
+  fill: #00ff00;
+}
+
+svg:not(.connected) {
+  fill: #ff0000;
+}
+
+.content {
+  padding: 30px;
+}
+
+.content > mat-card {
+  width: 200px;
+  height: 100%;
+}
+
+.qm-card-background {
+  &__connected {
+    background: rgb(128, 240, 128);
+  }
+
+  &__disconnected {
+    background: red;
+  }
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 25px 15px 25px 15px;
+}
+
+.image-container img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+::ng-deep .mat-mdc-card-header-text {
+  width: 100%;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 14px 14px !important;
+}
+
+::ng-deep .mat-expansion-panel-header-description {
+  flex-grow: 1 !important;
+  margin-right: 0px !important;
+}
+
+::ng-deep .mat-expansion-panel-header {
+  padding: 0 14px !important;
+}
+
+::ng-deep .mat-content.mat-content-hide-toggle {
+  margin-right: 0px !important;
+}
+
+.subtitle-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.circle {
+  border-radius: 100%;
+  width: 0.9rem;
+  height: 0.9rem;
+}

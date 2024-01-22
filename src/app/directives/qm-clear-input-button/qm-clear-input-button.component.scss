@@ -1,0 +1,21 @@
+
+.qm-clear-input-button {
+  position: absolute;
+  color: #0079c2;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  cursor: pointer;
+
+  &__rtl {
+    right: auto;
+    left: 0.5rem !important;
+  }
+
+  &:hover {
+    color: rgba(0, 0, 0, 0.62);
+  }
+  .qm-action-btn__icon {
+    font-size: 1rem;
+  }
+}

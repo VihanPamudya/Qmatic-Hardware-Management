@@ -1,0 +1,61 @@
+<h1>{{ "label.name.changepin" | translate }}</h1>
+<div>
+  <form class="qm-modal__box-container">
+    <div class="qm-modal-row">
+      <div class="qm-modal-col-12">
+        <div class="qm-standard-text-field">
+          <label class="qm-standard-text-field__label">
+            <span class="qm-standard-text-field__top-container">
+              <span class="qm-standard-text-field__text">{{
+                "field.settingsUpdateForm.changepin" | translate
+              }}</span>
+            </span>
+            <code-input
+              #firstCodeInput
+              [isCodeHidden]="true"
+              [codeLength]="4"
+              (codeChanged)="onCodeChanged($event)"
+              (codeCompleted)="onCodeCompleted($event)"
+            >
+            </code-input>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="qm-modal-row" style="margin-top: 15px">
+      <div class="qm-modal-col-12">
+        <div class="qm-standard-text-field">
+          <label class="qm-standard-text-field__label">
+            <span class="qm-standard-text-field__top-container">
+              <span class="qm-standard-text-field__text">{{
+                "field.settingsUpdateForm.changepinagain" | translate
+              }}</span>
+            </span>
+            <code-input
+              #secondCodeInput
+              [isCodeHidden]="true"
+              [codeLength]="4"
+              (codeChanged)="onSecondCodeChanged($event)"
+              (codeCompleted)="onSecondCodeCompleted($event)"
+            >
+            </code-input>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="qm-modal__footer">
+      <div class="qm-generic-layout qm-generic-layout--align-right">
+        <button class="qm-btn qm-btn--primary" (click)="submitPin()" [disabled]="isDisable">
+          <span
+            class="qm-btn__text"
+            title="{{ 'button.updateDeviceForm.save' | translate }}"
+          >
+            {{ "button.updateDeviceForm.save" | translate }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+

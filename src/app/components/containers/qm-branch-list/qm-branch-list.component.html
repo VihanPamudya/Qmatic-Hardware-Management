@@ -1,0 +1,58 @@
+<div class="qm-dashboard">
+<div class="qm-dashboard__header">
+  <div class="qm-full-height qm-dashboard__header-container">
+    <div class="qm-customer-card">
+      <div class="qm-customer-card__content-container">
+        <div
+          class="qm-customer-card__list-container ng-untouched ng-pristine ng-invalid"
+        >
+          <div class="qm-list-setting__branch">
+            <div class="qm-standard-text-field">
+              <label class="qm-standard-text-field__label">
+                <!-- <span class="qm-standard-text-field__top-container">
+                  <span class="qm-standard-text-field__text">{{"label.list.branch.heading" | translate}}</span>
+                </span> -->
+                <div class="qm-standard-text-field">
+                  <ng-select
+                    [loadingText]="'Loading...'"
+                    [items]="branches"
+                    (change) = "branchClear()"
+                    clearAllText="{{'button.list.clear' | translate}}"
+                    bindLabel="name"
+
+                    autofocus
+                    placeholder="{{ 'label.list.select.branch' | translate }}"
+                    notFoundText="{{'label.list.branch.notfound' | translate}}"
+                    [(ngModel)]="selectedBranch">
+                    <ng-template #optionTemplate let-item="item">
+                      <div class="option">
+                        <div class="option-details">
+                          {{item.name}}
+                        </div>
+                      </div>
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </label>
+            </div>
+          </div>
+          <div class="qm-customer-card__btn-container">
+            <button
+              type="submit"
+              [disabled]="!selectedBranch"
+              class="qm-btn"
+              (click)="searchDevice()"
+            >
+              <span
+                class="qm-btn__text"
+                title="{{ 'button.list.show' | translate }}"
+                >{{ "button.list.show" | translate }}</span
+              >
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
